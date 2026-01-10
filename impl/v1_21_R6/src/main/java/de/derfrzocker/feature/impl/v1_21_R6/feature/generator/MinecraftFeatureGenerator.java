@@ -11,6 +11,8 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_21_R6.generator.CraftLimitedRegion;
 import org.bukkit.craftbukkit.v1_21_R6.util.RandomSourceWrapper;
@@ -47,6 +49,18 @@ public abstract class MinecraftFeatureGenerator<M extends FeatureConfiguration, 
     public void place(@NotNull WorldInfo worldInfo, @NotNull Random random, @NotNull BlockVector position, @NotNull LimitedRegion limitedRegion, @NotNull C configuration) {
         WorldGenLevel level = ((CraftLimitedRegion) limitedRegion).getHandle();
         M config = createConfiguration(worldInfo, random, position, limitedRegion, configuration);
+        if (Bukkit.getServer().getWorld(worldInfo.getName()).getBlockAt(position.getBlockX()-1, position.getBlockY(), position.getBlockZ()).getType().equals(Material.LAVA))
+            return;
+        if (Bukkit.getServer().getWorld(worldInfo.getName()).getBlockAt(position.getBlockX()+1, position.getBlockY(), position.getBlockZ()).getType().equals(Material.LAVA))
+            return;
+        if (Bukkit.getServer().getWorld(worldInfo.getName()).getBlockAt(position.getBlockX(), position.getBlockY()-1, position.getBlockZ()).getType().equals(Material.LAVA))
+            return;
+        if (Bukkit.getServer().getWorld(worldInfo.getName()).getBlockAt(position.getBlockX(), position.getBlockY()+1, position.getBlockZ()).getType().equals(Material.LAVA))
+            return;
+        if (Bukkit.getServer().getWorld(worldInfo.getName()).getBlockAt(position.getBlockX(), position.getBlockY(), position.getBlockZ()-1).getType().equals(Material.LAVA))
+            return;
+        if (Bukkit.getServer().getWorld(worldInfo.getName()).getBlockAt(position.getBlockX(), position.getBlockY(), position.getBlockZ()+1).getType().equals(Material.LAVA))
+            return;
         feature.place(new FeaturePlaceContext<>(Optional.empty(), level, level.getMinecraftWorld().getChunkSource().getGenerator(), new RandomSourceWrapper(random), new BlockPos(position.getBlockX(), position.getBlockY(), position.getBlockZ()), config));
     }
 

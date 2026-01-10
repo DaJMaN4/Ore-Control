@@ -18,6 +18,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_21_R6.generator.CraftLimitedRegion;
 import org.bukkit.craftbukkit.v1_21_R6.util.RandomSourceWrapper;
@@ -67,6 +68,11 @@ public class ActivationModifierHook extends PlacementModifier implements Placeme
 
         CraftLimitedRegion limitedRegion = new CraftLimitedRegion(context.getLevel(), new ChunkPos(blockPos));
         Stream<BlockVector> pos = activationModifier.getPositions(context.getLevel().getMinecraftWorld().getWorld(), new RandomSourceWrapper.RandomWrapper(random), new BlockVector(blockPos.getX(), blockPos.getY(), blockPos.getZ()), limitedRegion, (ActivationConfiguration) configuration);
+        //context.getLevel().getMinecraftWorld().getWorld()
+        //if (Bukkit.getServer().getWorld())
+
+        //if (blockPos.getX(), blockPos.getY(), blockPos.getZ())
+
 
         limitedRegion.breakLink();
 
